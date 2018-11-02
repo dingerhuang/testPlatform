@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.product.orm.mapper.MockUrlResultMapper">
+    <resultMap id="BaseResultMap" type="com.module.product.orm.model.MockUrlResult">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="mock_url" jdbcType="VARCHAR" property="mockUrl" />
+        <result column="mock_para" jdbcType="VARCHAR" property="mockPara" />
+        <result column="mock_response" jdbcType="VARCHAR" property="mockResponse" />
+        <result column="timeOut" jdbcType="VARCHAR" property="timeOut" />
+        <result column="project" jdbcType="VARCHAR" property="project" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="last_modify_user" jdbcType="VARCHAR" property="lastModifyUser" />
+    </resultMap>
+
+    <select id="getMockUrlListByCondition" parameterType="com.module.product.common.search.MockUrlResultVo" resultMap="BaseResultMap">
+        select *
+        from t_mock_url_result
+        <trim prefix="where" prefixOverrides="and | or ">
+            <if test="mockUrl != null and mockUrl != ''">and mock_url = #{mockUrl}</if>
+            <if test="project != null and project != ''">and project = #{project}</if>
+            <if test="dateString != null and dateString != ''"><![CDATA[ and create_time>=#{startDate} and create_time<=#{endDate} ]]></if>
+        </trim>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

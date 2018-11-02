@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.module.product.orm.mapper.TestcasesMapper">
+    <resultMap id="BaseResultMap" type="com.module.product.orm.model.TestCases">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="business_type" jdbcType="VARCHAR" property="businessType" />
+        <result column="requirement_name" jdbcType="VARCHAR" property="requirementName" />
+        <result column="testcase_turn" jdbcType="VARCHAR" property="testcaseTurn" />
+        <result column="testcase_name" jdbcType="VARCHAR" property="testcaseName" />
+        <result column="testcase_level" jdbcType="VARCHAR" property="testcaseLevel" />
+        <result column="testcase_step" jdbcType="VARCHAR" property="testcaseStep" />
+        <result column="testcase_expected_result" jdbcType="VARCHAR" property="testcaseExpectedResult" />
+        <result column="testcase_actual_result" jdbcType="VARCHAR" property="testcaseActualResult" />
+        <result column="testcase_owner" jdbcType="VARCHAR" property="testcaseOwner" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <select id="getTestcases" parameterType="com.module.product.common.search.TestcaseVo" resultMap="BaseResultMap">
+        select *
+        from t_manage_testcase
+        <trim prefix="where" prefixOverrides="and | or ">
+            <if test="businessType != null and businessType != ''">and business_type = #{businessType}</if>
+            <if test="requirementName != null and requirementName != ''">and requirement_name = #{requirementName}</if>
+            <if test="testcaseTurn != null and testcaseTurn != ''">and testcase_turn = #{testcaseTurn}</if>
+            <if test="testcaseLevel != null and testcaseLevel != ''">and testcase_level = #{testcaseLevel}</if>
+            <if test="testcaseActualResult != null and testcaseActualResult != ''">and testcase_actual_result = #{testcaseActualResult}</if>
+            <if test="testcaseOwner != null and testcaseOwner != ''">and testcase_owner = #{testcaseOwner}</if>
+            <if test="dateString != null and dateString != ''"><![CDATA[ and create_time>=#{startDate} and create_time<=#{endDate} ]]></if>
+        </trim>
+        ORDER BY create_time DESC
+    </select>
+</mapper>
